@@ -62,53 +62,12 @@ Amazon Redshift est un service d'entrepôt de données dans le cloud qui permet 
 2. Allez dans "Actions" → "Manage IAM roles"
 3. Associez le rôle IAM créé précédemment
 
-## Connexion entre Redshift et S3
-
-### Charger des Données depuis S3 vers Redshift
-```sql
--- Exemple de commande COPY pour charger des données
-COPY nom_table
-FROM 's3://nom-de-votre-bucket/chemin/vers/fichier'
-IAM_ROLE 'arn:aws:iam::votre-compte:role/nom-du-role'
-FORMAT AS CSV
-DELIMITER ',' 
-REGION 'us-east-1';
-```
-
-### Décharger des Données de Redshift vers S3
-```sql
--- Exemple de commande UNLOAD pour exporter des données
-UNLOAD ('SELECT * FROM nom_table')
-TO 's3://nom-de-votre-bucket/chemin/de/sortie/'
-IAM_ROLE 'arn:aws:iam::votre-compte:role/nom-du-role';
-```
-
 ## Bonnes Pratiques
 1. Utilisez toujours des rôles IAM au lieu des identifiants d'accès
 2. Implémentez le principe du moindre privilège dans les permissions IAM
 3. Utilisez le chiffrement pour les données sensibles
 4. Maintenez à jour les permissions et les rôles
 5. Surveillez régulièrement l'utilisation et les coûts
-
-## Commandes Utiles
-
-### Vérifier la Connexion
-```sql
--- Vérifier les permissions S3
-SELECT * FROM SVV_EXTERNAL_TABLES;
-
--- Vérifier les rôles IAM associés
-SELECT * FROM SVV_IAM_ROLES;
-```
-
-### Surveillance
-```sql
--- Vérifier l'état du chargement des données
-SELECT * FROM STL_LOAD_COMMITS;
-
--- Vérifier les erreurs de chargement
-SELECT * FROM STL_LOAD_ERRORS;
-```
 
 ## Résolution des Problèmes Courants
 1. Erreur de permissions : Vérifiez que le rôle IAM a les bonnes permissions
