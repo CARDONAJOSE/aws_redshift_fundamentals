@@ -17,7 +17,6 @@ venuetext32k varchar(100) encode text32k,
 venuezstd varchar(100) encode zstd);
 
 -- creation dun example de table comprime
-
 CREATE TABLE ventas_optimizadas (
     -- ID y cles
     venta_id BIGINT ENCODE RAW,                     -- Sans compression pour etre un SORTKEY
@@ -50,9 +49,7 @@ CREATE TABLE ventas_optimizadas (
     
 ) DISTKEY(cliente_id) SORTKEY(venta_id);
 
-
--- query pour compare la 
-
+-- query pour compare la compression
 SELECT
    column,
    encoding,
@@ -72,10 +69,7 @@ WHERE table_name = 'ventas_optimizadas'
 ORDER BY size_mb DESC;
 
 -- change de compression sur un columne
-
 ALTER TABLE ventas_optimizadas ALTER COLUMN ciudad ENCODE ZSTD;
 
 -- analyse de compression d'un table 
-
 ANALYZE COMPRESSION ventas_optimizadas;
-
